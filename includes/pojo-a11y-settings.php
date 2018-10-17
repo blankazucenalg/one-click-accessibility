@@ -86,6 +86,26 @@ class Pojo_A11y_Settings {
 		);
 
 		$fields[] = array(
+			'id' => 'pojo_a11y_toolbar_button_voice_over',
+			'title' => __( 'Voice Over', 'pojo-accessibility' ),
+			'type' => self::FIELD_SELECT,
+			'class' => $toolbar_options_classes,
+			'options' => array(
+				'enable' => __( 'Enable', 'pojo-accessibility' ),
+				'disable' => __( 'Disable', 'pojo-accessibility' ),
+			),
+			'std' => 'enable',
+		);
+
+		$fields[] = array(
+			'id' => 'pojo_a11y_toolbar_button_voice_over_title',
+			'title' => __( 'Voice Over', 'pojo-accessibility' ),
+			'type' => self::FIELD_TEXT,
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
+			'std' => __( 'Voice Over', 'pojo-accessibility' ),
+		);
+
+		$fields[] = array(
 			'id' => 'pojo_a11y_toolbar_button_grayscale',
 			'title' => __( 'Grayscale', 'pojo-accessibility' ),
 			'type' => self::FIELD_SELECT,

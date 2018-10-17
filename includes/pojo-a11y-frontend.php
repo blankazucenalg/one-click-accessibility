@@ -25,7 +25,7 @@ final class Pojo_A11y_Frontend {
 	public function enqueue_scripts() {
 		wp_register_script(
 			'pojo-a11y',
-			POJO_A11Y_ASSETS_URL . 'js/app.min.js',
+			POJO_A11Y_ASSETS_URL . 'js/app.dev.js',
 			array(
 				'jquery',
 			),
@@ -35,7 +35,7 @@ final class Pojo_A11y_Frontend {
 
 		wp_register_style(
 			'pojo-a11y',
-			POJO_A11Y_ASSETS_URL . 'css/style.min.css',
+			POJO_A11Y_ASSETS_URL . 'css/style.css',
 			array(),
 			'1.0.0'
 		);
@@ -114,6 +114,25 @@ final class Pojo_A11y_Frontend {
 					
 					<ul class="pojo-a11y-toolbar-items pojo-a11y-tools">
 						<?php do_action( 'pojo_a11y_toolbar_before_buttons' ); ?>
+
+							<!--li>
+							<a class="dropdown-item text-acces" href="#" alt="Cambiar el tamaño de fuente de texto">Fuente
+								<div class=" btn-group-toggle float-right" data-toggle="buttons" data-action="resize-opts" data-action-group="resize" tabindex="-1">
+									<label class="btn active act-line">
+										<input type="radio" name="options" id="option1" autocomplete="off" checked><p class="text-tamanos100">aA</p>
+											<p class="text-porcentaje">100%</p>
+									</label>
+									<label class="btn margin150">
+										<input type="radio" name="options" id="option2" autocomplete="off"><p class="text-tamanos150">aA</p>
+											<p class="text-porcentaje">150%</p>
+									</label>
+									<label class="btn margin200">
+										<input type="radio" name="options" id="option3" autocomplete="off"><p class="text-tamanos200">aA</p>
+											<p class="text-porcentaje">200%</p>
+									</label>
+								</div>
+							</a>
+							</li-->
 						<?php if ( $this->is_toolbar_button_active( 'resize_font' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-plus" data-action="resize-plus" data-action-group="resize" tabindex="-1">
@@ -133,6 +152,13 @@ final class Pojo_A11y_Frontend {
 								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-grayscale" data-action="grayscale" data-action-group="schema" tabindex="-1">
 									<?php echo $this->get_toolbar_button_title( 'grayscale' ); ?>
 								</a>
+								<!-- 
+								<a class="pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-grayscale text-acces en-linea-switch display-byn" href="#" data-action="grayscale" data-action-group="schema" tabindex="-1"> <--?php echo $this->get_toolbar_button_title( 'grayscale' ); ?>
+									<div class="switch switch--horizontal">
+										<input id="radio-a" type="radio" name="first-switch" checked="checked" /><label for="radio-a">SI</label><input id="radio-b" type="radio" name="first-switch" /><label for="radio-b">NO</label><span class="toggle-outside"><span class="toggle-inside"></span></span>
+									</div>
+								</a>
+								-->
 							</li>
 						<?php endif; ?>
 
@@ -171,6 +197,13 @@ final class Pojo_A11y_Frontend {
 							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-readable-font" data-action="readable-font" data-action-group="toggle" tabindex="-1">
 									<?php echo $this->get_toolbar_button_title( 'readable_font' ); ?>
+								</a>
+							</li>
+						<?php endif; ?>
+						<?php if ( $this->is_toolbar_button_active( 'voice_over' ) ) : ?>
+							<li class="pojo-a11y-toolbar-item">
+								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-voice-over" data-action="voice-over" data-action-group="voice" tabindex="-1">
+									<?php echo $this->get_toolbar_button_title( 'voice_over' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>
@@ -225,6 +258,17 @@ final class Pojo_A11y_Frontend {
 				'light_bg' => '<path fill="currentColor" d="M184 144c0 4.25-3.75 8-8 8s-8-3.75-8-8c0-17.25-26.75-24-40-24-4.25 0-8-3.75-8-8s3.75-8 8-8c23.25 0 56 12.25 56 40zM224 144c0-50-50.75-80-96-80s-96 30-96 80c0 16 6.5 32.75 17 45 4.75 5.5 10.25 10.75 15.25 16.5 17.75 21.25 32.75 46.25 35.25 74.5h57c2.5-28.25 17.5-53.25 35.25-74.5 5-5.75 10.5-11 15.25-16.5 10.5-12.25 17-29 17-45zM256 144c0 25.75-8.5 48-25.75 67s-40 45.75-42 72.5c7.25 4.25 11.75 12.25 11.75 20.5 0 6-2.25 11.75-6.25 16 4 4.25 6.25 10 6.25 16 0 8.25-4.25 15.75-11.25 20.25 2 3.5 3.25 7.75 3.25 11.75 0 16.25-12.75 24-27.25 24-6.5 14.5-21 24-36.75 24s-30.25-9.5-36.75-24c-14.5 0-27.25-7.75-27.25-24 0-4 1.25-8.25 3.25-11.75-7-4.5-11.25-12-11.25-20.25 0-6 2.25-11.75 6.25-16-4-4.25-6.25-10-6.25-16 0-8.25 4.5-16.25 11.75-20.5-2-26.75-24.75-53.5-42-72.5s-25.75-41.25-25.75-67c0-68 64.75-112 128-112s128 44 128 112z"></path>',
 				'links_underline' => '<path fill="currentColor" d="M364 304c0-6.5-2.5-12.5-7-17l-52-52c-4.5-4.5-10.75-7-17-7-7.25 0-13 2.75-18 8 8.25 8.25 18 15.25 18 28 0 13.25-10.75 24-24 24-12.75 0-19.75-9.75-28-18-5.25 5-8.25 10.75-8.25 18.25 0 6.25 2.5 12.5 7 17l51.5 51.75c4.5 4.5 10.75 6.75 17 6.75s12.5-2.25 17-6.5l36.75-36.5c4.5-4.5 7-10.5 7-16.75zM188.25 127.75c0-6.25-2.5-12.5-7-17l-51.5-51.75c-4.5-4.5-10.75-7-17-7s-12.5 2.5-17 6.75l-36.75 36.5c-4.5 4.5-7 10.5-7 16.75 0 6.5 2.5 12.5 7 17l52 52c4.5 4.5 10.75 6.75 17 6.75 7.25 0 13-2.5 18-7.75-8.25-8.25-18-15.25-18-28 0-13.25 10.75-24 24-24 12.75 0 19.75 9.75 28 18 5.25-5 8.25-10.75 8.25-18.25zM412 304c0 19-7.75 37.5-21.25 50.75l-36.75 36.5c-13.5 13.5-31.75 20.75-50.75 20.75-19.25 0-37.5-7.5-51-21.25l-51.5-51.75c-13.5-13.5-20.75-31.75-20.75-50.75 0-19.75 8-38.5 22-52.25l-22-22c-13.75 14-32.25 22-52 22-19 0-37.5-7.5-51-21l-52-52c-13.75-13.75-21-31.75-21-51 0-19 7.75-37.5 21.25-50.75l36.75-36.5c13.5-13.5 31.75-20.75 50.75-20.75 19.25 0 37.5 7.5 51 21.25l51.5 51.75c13.5 13.5 20.75 31.75 20.75 50.75 0 19.75-8 38.5-22 52.25l22 22c13.75-14 32.25-22 52-22 19 0 37.5 7.5 51 21l52 52c13.75 13.75 21 31.75 21 51z"></path>',
 				'readable_font' => '<path fill="currentColor" d="M181.25 139.75l-42.5 112.5c24.75 0.25 49.5 1 74.25 1 4.75 0 9.5-0.25 14.25-0.5-13-38-28.25-76.75-46-113zM0 416l0.5-19.75c23.5-7.25 49-2.25 59.5-29.25l59.25-154 70-181h32c1 1.75 2 3.5 2.75 5.25l51.25 120c18.75 44.25 36 89 55 133 11.25 26 20 52.75 32.5 78.25 1.75 4 5.25 11.5 8.75 14.25 8.25 6.5 31.25 8 43 12.5 0.75 4.75 1.5 9.5 1.5 14.25 0 2.25-0.25 4.25-0.25 6.5-31.75 0-63.5-4-95.25-4-32.75 0-65.5 2.75-98.25 3.75 0-6.5 0.25-13 1-19.5l32.75-7c6.75-1.5 20-3.25 20-12.5 0-9-32.25-83.25-36.25-93.5l-112.5-0.5c-6.5 14.5-31.75 80-31.75 89.5 0 19.25 36.75 20 51 22 0.25 4.75 0.25 9.5 0.25 14.5 0 2.25-0.25 4.5-0.5 6.75-29 0-58.25-5-87.25-5-3.5 0-8.5 1.5-12 2-15.75 2.75-31.25 3.5-47 3.5z"></path>',
+				'voice_over' => '<g>
+				<path d="M4.5,328.2c13-21.5,34.1-33.4,57.3-42.5C129.7,259,197.6,259,265.3,286c10.6,4.2,20.8,9.6,30.5,15.6
+					c20.9,13,32.1,30.8,30.9,57c-0.4,9.7-0.1,19.5-0.1,29.3c-108.9,0-217.7,0-326.6,0c0-14.5,0-28.8,0-43.2
+					C0,342.1,1.1,333.8,4.5,328.2z"/>
+				<path d="M441.4,197.7c-9.6,33.7-26.9,62.8-52,87.6c-11-11-21.5-21.5-32.5-32.5c54.3-72.9,57.1-146,0.2-219.8
+					c10.1-10.9,20.4-22,30.7-33c0.9,0,1.7,0,2.6,0c21.3,25.4,40,52.3,49.3,84.7C449.1,112.3,451.6,163.3,441.4,197.7z"/>
+				<path d="M244.9,142.4c0.2,45.2-36.4,82.1-81.5,82.2c-45.2,0.1-81.9-36.6-81.8-81.8c0.1-44.7,36.2-81.2,80.8-81.5
+					C207.8,60.9,244.8,97.3,244.9,142.4z"/>
+				<path d="M288.3,181.4c15.9-26,15.8-52-0.4-77.7c11.5-11.4,22.5-22.4,33.5-33.3c41.1,36.3,41.2,108.6,0.2,145.3
+					C310.8,204.5,300,193.4,288.3,181.4z"/>
+			</g>',
 				'reset' => '<path fill="currentColor" d="M384 224c0 105.75-86.25 192-192 192-57.25 0-111.25-25.25-147.75-69.25-2.5-3.25-2.25-8 0.5-10.75l34.25-34.5c1.75-1.5 4-2.25 6.25-2.25 2.25 0.25 4.5 1.25 5.75 3 24.5 31.75 61.25 49.75 101 49.75 70.5 0 128-57.5 128-128s-57.5-128-128-128c-32.75 0-63.75 12.5-87 34.25l34.25 34.5c4.75 4.5 6 11.5 3.5 17.25-2.5 6-8.25 10-14.75 10h-112c-8.75 0-16-7.25-16-16v-112c0-6.5 4-12.25 10-14.75 5.75-2.5 12.75-1.25 17.25 3.5l32.5 32.25c35.25-33.25 83-53 132.25-53 105.75 0 192 86.25 192 192z"></path>',
 				'sitemap' => '<path fill="currentColor" d="M448 312v80c0 13.25-10.75 24-24 24h-80c-13.25 0-24-10.75-24-24v-80c0-13.25 10.75-24 24-24h24v-48h-128v48h24c13.25 0 24 10.75 24 24v80c0 13.25-10.75 24-24 24h-80c-13.25 0-24-10.75-24-24v-80c0-13.25 10.75-24 24-24h24v-48h-128v48h24c13.25 0 24 10.75 24 24v80c0 13.25-10.75 24-24 24h-80c-13.25 0-24-10.75-24-24v-80c0-13.25 10.75-24 24-24h24v-48c0-17.5 14.5-32 32-32h128v-48h-24c-13.25 0-24-10.75-24-24v-80c0-13.25 10.75-24 24-24h80c13.25 0 24 10.75 24 24v80c0 13.25-10.75 24-24 24h-24v48h128c17.5 0 32 14.5 32 32v48h24c13.25 0 24 10.75 24 24z"></path>',
 				'help' => '<path fill="currentColor" d="M224 344v-48c0-4.5-3.5-8-8-8h-48c-4.5 0-8 3.5-8 8v48c0 4.5 3.5 8 8 8h48c4.5 0 8-3.5 8-8zM288 176c0-45.75-48-80-91-80-40.75 0-71.25 17.5-92.75 53.25-2.25 3.5-1.25 8 2 10.5l33 25c1.25 1 3 1.5 4.75 1.5 2.25 0 4.75-1 6.25-3 11.75-15 16.75-19.5 21.5-23 4.25-3 12.5-6 21.5-6 16 0 30.75 10.25 30.75 21.25 0 13-6.75 19.5-22 26.5-17.75 8-42 28.75-42 53v9c0 4.5 3.5 8 8 8h48c4.5 0 8-3.5 8-8v0c0-5.75 7.25-18 19-24.75 19-10.75 45-25.25 45-63.25zM384 224c0 106-86 192-192 192s-192-86-192-192 86-192 192-192 192 86 192 192z"></path>',
@@ -257,7 +301,6 @@ final class Pojo_A11y_Frontend {
 
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
-
 		add_action( 'wp_footer', array( &$this, 'print_skip_to_content_link' ), 20 );
 		add_action( 'wp_footer', array( &$this, 'print_toolbar' ), 30 );
 	}

@@ -1,4 +1,29 @@
 /*! pojo-accessibility - v2.0.2 - 28-05-2018 */
+@font-face {
+  font-family: 'Open Dyslexic';
+  src: url('../fonts/OpenDyslexicAlta-Regular.otf');
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Open Dyslexic';
+  src: url('../fonts/OpenDyslexicAlta-Bold.otf');
+  font-style: normal;
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'Open Dyslexic';
+  src: url('../fonts/OpenDyslexicAlta-Italic.otf');
+  font-style: italic;
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Open Dyslexic';
+  src: url('../fonts/OpenDyslexicAlta-BoldItalic.otf');
+  font-style: italic;
+  font-weight: bold;
+}
+
 #pojo-a11y-toolbar {
   position: fixed;
   font-size: 16px !important;
@@ -1425,7 +1450,14 @@ body.pojo-a11y-links-underline a * {
 }
 body.pojo-a11y-readable-font,
 body.pojo-a11y-readable-font *:not(i):not(span) {
-  font-family: Verdana, Arial, Helvetica, sans-serif !important;
+  font-family: 'Open Dyslexic', Arial, Helvetica, sans-serif !important;
+}
+
+.pojo-a11y-readable-font #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a {
+  font-size: 1em;
+}
+.pojo-a11y-readable-font #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay p.pojo-a11y-toolbar-title {
+  font-size: 1em;
 }
 .pojo-skip-link {
   position: absolute;

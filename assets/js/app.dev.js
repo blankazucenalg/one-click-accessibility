@@ -5,7 +5,6 @@
 
 ( function( $, window, document, undefined ) {
 	'use strict';
-
 	var Pojo_Accessibility_App = {
 		cache: {
 			$document: $( document ),
@@ -33,7 +32,10 @@
 
 		variables: {
 			currentFontSize: 120,
-			currentSchema: null
+			currentSchema: null,
+			currFFZoom: 1,
+			currIEZoom: 100,
+			voiceOver: false
 		},
 
 		activeActions: {},
@@ -131,12 +133,35 @@
 			resize: function( action, deactivate ) {
 				var oldFontSize = this.variables.currentFontSize;
 
-				if ( 'resize-plus' === action && this.settings.maxFontSize > oldFontSize ) {
-					this.variables.currentFontSize += 10;
+
+				if ( 'resize-opts' === action) {
+
+				}
+				if ( 'resize-plus' === action) { // && this.settings.maxFontSize > oldFontSize 
+					//this.variables.currentFontSize += 10;
+					console.log($);
+					if ($.browser && $.browser.mozilla){
+						var step = 0.02;
+						this.variables.currFFZoom += step; 
+						$('body').css('MozTransform','scale(' + this.variables.currFFZoom + ')');
+					} else {
+						var step = 2;
+						this.variables.currIEZoom += step;
+						$('body').css('zoom', ' ' + this.variables.currIEZoom + '%');
+					}
 				}
 
-				if ( 'resize-minus' === action && this.settings.minFontSize < oldFontSize ) {
-					this.variables.currentFontSize -= 10;
+				if ( 'resize-minus' === action) { // && this.settings.minFontSize < oldFontSize 
+					//this.variables.currentFontSize -= 10;
+					if ($.browser && $.browser.mozilla){
+            var step = 0.02;
+            this.variables.currFFZoom -= step;                 
+            $('body').css('MozTransform','scale(' + this.variables.currFFZoom + ')');
+					} else {
+						var step = 2;
+						this.variables.currIEZoom -= step;
+						$('body').css('zoom', ' ' + this.variables.currIEZoom + '%');
+					}
 				}
 
 				if ( deactivate ) {
@@ -177,6 +202,18 @@
 				currentSchema = this.variables.currentSchema = action;
 				this.cache.$body.addClass( this.settings.bodyClassPrefix + currentSchema );
 				this.getButtonByAction( currentSchema ).addClass( 'active' );
+			},
+			voice: function(action, deactivate) {
+				if (action === 'voice-over' && !this.variables.voiceOver) {
+					var voices = window.speechSynthesis.getVoices().filter(d => d.lang === 'es-MX');
+					var msg = new SpeechSynthesisUtterance($('.container').text());
+					msg.voice = voices[0];
+					window.speechSynthesis.speak(msg);
+					this.variables.voiceOver = true;
+				} else {
+					window.speechSynthesis.cancel();
+					this.variables.voiceOver = false;
+				}
 			}
 		},
 
@@ -186,7 +223,13 @@
 					this.activateButton( action, true );
 				}
 			}
-
+			if ($.browser && $.browser.mozilla){
+				this.variables.currFFZoom = 1;                
+				$('body').css('MozTransform','scale(' + this.variables.currFFZoom + ')');
+			} else {
+				this.variables.currIEZoom = 100;
+				$('body').css('zoom', ' ' + this.variables.currIEZoom + '%');
+			}
 			localStorage.removeItem( this.settings.storageKey );
 		},
 
