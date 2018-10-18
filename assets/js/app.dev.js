@@ -213,10 +213,14 @@
 					utterThis.lang = 'es-MX';
 					utterThis.voice = female;
 					synth.speak(utterThis);
+					this.getButtonByAction( 'voice-over' ).addClass( 'active' );
+					this.activeActions[ 'voice-over' ] = true;
 					this.variables.voiceOver = true;
 				} else {
 					window.speechSynthesis.cancel();
 					this.variables.voiceOver = false;
+					this.activeActions[ 'voice-over' ] = false;
+					this.getButtonByAction( 'voice-over' ).removeClass( 'active' );
 				}
 			}
 		},
