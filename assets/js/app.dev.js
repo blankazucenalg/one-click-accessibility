@@ -205,10 +205,14 @@
 			},
 			voice: function(action, deactivate) {
 				if (action === 'voice-over' && !this.variables.voiceOver) {
-					var voices = window.speechSynthesis.getVoices().filter(d => d.lang === 'es-MX');
-					var msg = new SpeechSynthesisUtterance($('.container').text());
-					msg.voice = voices[0];
-					window.speechSynthesis.speak(msg);
+					var synth = window.speechSynthesis;
+					var voices = synth.getVoices().filter(d => d.lang === 'es-MX');
+					var male = voices[0];
+					var female = voices[1];
+					var utterThis = new SpeechSynthesisUtterance($('body').text());
+					utterThis.lang = 'es-MX';
+					utterThis.voice = female;
+					synth.speak(utterThis);
 					this.variables.voiceOver = true;
 				} else {
 					window.speechSynthesis.cancel();
