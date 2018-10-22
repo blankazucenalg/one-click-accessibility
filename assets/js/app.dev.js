@@ -139,7 +139,6 @@
 				}
 				if ( 'resize-plus' === action) { // && this.settings.maxFontSize > oldFontSize 
 					//this.variables.currentFontSize += 10;
-					console.log($);
 					if ($.browser && $.browser.mozilla){
 						var step = 0.02;
 						this.variables.currFFZoom += step; 
@@ -209,7 +208,33 @@
 					var voices = synth.getVoices().filter(d => d.lang === 'es-MX');
 					var male = voices[0];
 					var female = voices[1];
-					var utterThis = new SpeechSynthesisUtterance($('body').text());
+					var elements = $('.voice-over-item :not(script)');
+					var text = '';
+					elements.toArray().forEach(function(element) {
+						var innerText = '';
+
+						if (element.children && element.children.length > 0) {
+							for (let index = 0; index < element.children.length; index++) {
+								const child = element.children[index];
+								var t = (child.attributes.alt ? child.attributes.alt.value : child.attributes['aria-label'] ? child.attributes['aria-label'].value : child.innerText).trim().toLowerCase();
+
+								if (text.indexOf(t) < 0 && innerText.indexOf(t) < 0) {
+									innerText += t + '. ';
+								}
+							}
+						}
+						if (text.indexOf(innerText) < 0) {
+							text += '\n ' + innerText;
+						}
+            var scripts = element.getElementsByTagName("script");
+            if (scripts && scripts.length > 0) {
+							for (let index = 0; index < scripts.length; index++) {
+								const script = scripts[index];
+								text.replace(script.innerText, '');
+							}
+						}
+					});
+					var utterThis = new SpeechSynthesisUtterance(text);
 					utterThis.lang = 'es-MX';
 					utterThis.voice = female;
 					synth.speak(utterThis);
