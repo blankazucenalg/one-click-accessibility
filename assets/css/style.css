@@ -1448,6 +1448,11 @@ body.pojo-a11y-links-underline a,
 body.pojo-a11y-links-underline a * {
   text-decoration: underline !important;
 }
+
+.pojo-a11y-btn-readable-font {
+  font-family: 'Open Dyslexic', Arial, Helvetica, sans-serif !important;
+}
+
 body.pojo-a11y-readable-font,
 body.pojo-a11y-readable-font *:not(i):not(span) {
   font-family: 'Open Dyslexic', Arial, Helvetica, sans-serif !important;
