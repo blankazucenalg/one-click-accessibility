@@ -217,9 +217,16 @@
 							for (let index = 0; index < element.children.length; index++) {
 								const child = element.children[index];
 								var t = (child.attributes.alt ? child.attributes.alt.value : child.attributes['aria-label'] ? child.attributes['aria-label'].value : child.innerText).trim().toLowerCase();
-
-								if (text.indexOf(t) < 0 && innerText.indexOf(t) < 0) {
+								
+								if (text.indexOf(t) < 0 && innerText.indexOf(t) < 0 && child.tagName !== 'SCRIPT') {
 									innerText += t + '. ';
+								}
+								var scripts = child.getElementsByTagName("script");
+								if (scripts && scripts.length > 0) {
+									for (let index = 0; index < scripts.length; index++) {
+										const script = scripts[index];
+										innerText.replace(script.innerText, '');
+									}
 								}
 							}
 						}
@@ -234,6 +241,7 @@
 							}
 						}
 					});
+					console.log(text);
 					var utterThis = new SpeechSynthesisUtterance(text);
 					utterThis.lang = 'es-MX';
 					utterThis.voice = female;
